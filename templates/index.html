@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Risk Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-chart-line me-2"></i>Portfolio Risk Analyzer
+                </a>
+            </div>
+        </nav>
+
+        <!-- Market Watch Ticker -->
+        <div class="market-watch-container">
+            <div class="market-watch-header">
+                <div class="d-flex align-items-center">
+                    <div class="market-indices me-4">
+                        <span class="index-name">NIFTY 50</span>
+                        <span class="index-value">22,659.80</span>
+                        <span class="index-change text-success"><i class="fas fa-caret-up"></i> 0.42%</span>
+                    </div>
+                    <div class="market-indices me-4">
+                        <span class="index-name">SENSEX</span>
+                        <span class="index-value">74,611.55</span>
+                        <span class="index-change text-success"><i class="fas fa-caret-up"></i> 0.38%</span>
+                    </div>
+                    <div class="market-status">
+                        <span class="status-indicator active"></span> Market Open
+                    </div>
+                </div>
+            </div>
+            <div class="market-ticker-wrap">
+                <div class="market-ticker" id="stock-ticker">
+                    <!-- Stock tickers will be loaded here via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-section text-center">
+            <div class="container py-5">
+                <h1 class="display-4 fw-bold">Optimize Your <span class="gradient-text">Investment Portfolio</span></h1>
+                <p class="lead">Get AI-powered recommendations tailored to your financial goals and risk profile</p>
+                <div class="mt-4">
+                    <a href="#main-content" class="btn btn-light btn-lg px-4 py-3 rounded-pill shadow-sm float-animation">
+                        <i class="fas fa-rocket me-2"></i>Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <main id="main-content" class="container my-5">
+            <div class="row g-4">
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-transparent">
+                            <h3 class="mb-0"><i class="fas fa-user-circle me-2"></i>Your Risk Profile</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="risk-profile-form" class="needs-validation" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="total-assets" class="form-label">Total Assets (₹)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">₹</span>
+                                            <input type="number" class="form-control" id="total-assets" name="total_assets" placeholder="1,000,000" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="total-liabilities" class="form-label">Total Liabilities (₹)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">₹</span>
+                                            <input type="number" class="form-control" id="total-liabilities" name="total_liabilities" placeholder="300,000" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="monthly-income" class="form-label">Monthly Income (₹)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">₹</span>
+                                            <input type="number" class="form-control" id="monthly-income" name="monthly_income" placeholder="80,000" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="monthly-expenses" class="form-label">Monthly Expenses (₹)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">₹</span>
+                                            <input type="number" class="form-control" id="monthly-expenses" name="monthly_expenses" placeholder="50,000" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="emergency-fund" class="form-label">Emergency Fund (months)</label>
+                                        <input type="number" class="form-control" id="emergency-fund" name="emergency_fund_months" placeholder="6" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age" name="age" placeholder="35" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="investment-experience" class="form-label">Investment Experience</label>
+                                    <select class="form-select" id="investment-experience" name="investment_experience" required>
+                                        <option value="" selected disabled>Select experience level</option>
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="retirement-goals" class="form-label">Retirement Goals</label>
+                                    <textarea class="form-control" id="retirement-goals" name="retirement_goals" rows="2" placeholder="Describe your retirement objectives..." required></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="investment-horizon" class="form-label">Investment Horizon</label>
+                                    <select class="form-select" id="investment-horizon" name="investment_horizon" required>
+                                        <option value="" selected disabled>Select horizon</option>
+                                        <option value="Short-term">Short-term (< 3 years)</option>
+                                        <option value="Medium-term">Medium-term (3-7 years)</option>
+                                        <option value="Long-term">Long-term (> 7 years)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="risk-appetite" class="form-label">Risk Appetite</label>
+                                    <select class="form-select" id="risk-appetite" name="risk_appetite" required>
+                                        <option value="" selected disabled>Select risk level</option>
+                                        <option value="Conservative">Conservative</option>
+                                        <option value="Moderate">Moderate</option>
+                                        <option value="Aggressive">Aggressive</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-transparent">
+                            <h3 class="mb-0"><i class="fas fa-file-csv me-2"></i>Portfolio Upload</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="upload-area p-4 mb-4 text-center border border-dashed rounded-3 bg-light">
+                                <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3 float-animation"></i>
+                                <p class="card-text mb-3">Upload your portfolio transaction CSV file.</p>
+                                <label for="portfolio-csv" class="btn btn-outline-primary px-4">
+                                    <i class="fas fa-file-upload me-2"></i>Select File
+                                </label>
+                                <input class="form-control d-none" type="file" id="portfolio-csv" name="portfolio_csv" accept=".csv" required>
+                                <p class="file-name small text-muted mt-2"></p>
+                            </div>
+                            
+                            <div class="alert alert-info p-3 d-flex align-items-center">
+                                <i class="fas fa-info-circle text-primary me-3 fa-lg"></i>
+                                <p class="small mb-0">
+                                    The CSV should include your stock transaction history with columns for trade date, security name, transaction type (buy/sell), quantity, and market rate.
+                                </p>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button type="button" id="analyze-btn" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-chart-pie me-2"></i>Analyze Portfolio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results section (hidden by default) -->
+            <div id="results-section" class="my-5 d-none">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Portfolio Analysis Results</h3>
+                        <span class="badge rounded-pill bg-success px-3 py-2">AI-Powered Analysis</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="loading" class="text-center my-5 d-none">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">Analyzing your portfolio with AI...</p>
+                        </div>
+                        
+                        <div id="results-content" class="d-none">
+                            <!-- Tabs for navigation -->
+                            <ul class="nav nav-tabs mb-4" id="resultsTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="holdings-tab" data-bs-toggle="tab" data-bs-target="#holdings" type="button" role="tab" aria-controls="holdings" aria-selected="true">
+                                        <i class="fas fa-wallet me-2"></i>Current Holdings
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="keep-tab" data-bs-toggle="tab" data-bs-target="#keep" type="button" role="tab" aria-controls="keep" aria-selected="false">
+                                        <i class="fas fa-check-circle me-2"></i>Stocks to Keep
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="exit-tab" data-bs-toggle="tab" data-bs-target="#exit" type="button" role="tab" aria-controls="exit" aria-selected="false">
+                                        <i class="fas fa-times-circle me-2"></i>Stocks to Exit
+                                    </button>
+                                </li>
+                            </ul>
+                            
+                            <!-- Tab content -->
+                            <div class="tab-content" id="resultsTabContent">
+                                <div class="tab-pane fade show active" id="holdings" role="tabpanel" aria-labelledby="holdings-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="holdings-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Security Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Avg. Price</th>
+                                                    <th>Current Price</th>
+                                                    <th>Market Cap</th>
+                                                    <th>Sector</th>
+                                                    <th>Volatility</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Data will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="keep" role="tabpanel" aria-labelledby="keep-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="keep-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Security Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Avg. Price</th>
+                                                    <th>Current Price</th>
+                                                    <th>Market Cap</th>
+                                                    <th>Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Data will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="exit" role="tabpanel" aria-labelledby="exit-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="exit-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Security Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Avg. Price</th>
+                                                    <th>Current Price</th>
+                                                    <th>Market Cap</th>
+                                                    <th>Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Data will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="error-message" class="alert alert-danger d-none" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <span id="error-text"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0">Portfolio Risk Analyzer &copy; 2024</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p class="mb-0">AI-Powered Financial Insights</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', path='/js/app.js') }}"></script>
+    <script>
+        // File upload visual enhancement
+        document.getElementById('portfolio-csv').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '';
+            document.querySelector('.file-name').textContent = fileName ? `Selected: ${fileName}` : '';
+        });
+    </script>
+</body>
+</html> 
