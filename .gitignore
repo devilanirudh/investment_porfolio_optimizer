@@ -1,0 +1,8 @@
+# Google Cloud credentials
+*-*.json
+prodloop-*.json
+starry-gravity-*.json
+
+# Specific credential files
+prodloop-8df7fb8e30c0.json
+starry-gravity-454608-r3-e224bbcef1e6.json 
