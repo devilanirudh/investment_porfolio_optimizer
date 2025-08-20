@@ -10,10 +10,10 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}[FINGPT] Starting FinGPT-RAG-Portfolio deployment process${NC}"
 
 # Configuration variables
-PROJECT_ID="starry-gravity-454608-r3"
+PROJECT_ID="${GOOGLE_PROJECT_ID:-starry-gravity-454608-r3}"
 REGION="asia-south1"  # Mumbai region for Indian deployments
 SERVICE_NAME="fingpt-portfolio-analyzer"
-SERVICE_ACCOUNT_KEY="/Users/anirudhdev/Desktop/proj/app/starry-gravity-454608-r3-e224bbcef1e6.json"
+SERVICE_ACCOUNT_KEY="${GOOGLE_APPLICATION_CREDENTIALS:-/Users/anirudhdev/Desktop/proj/app/starry-gravity-454608-r3-e224bbcef1e6.json}"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
 MIN_INSTANCES=1
 MAX_INSTANCES=5
