@@ -15,10 +15,10 @@ import time
 import random
 
 # Constants
-BUCKET_NAME = os.getenv("BUCKET_NAME")
-PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
+BUCKET_NAME = "ny_processing"
+PROJECT_ID = "prodloop"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GOOGLE_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+GOOGLE_CREDENTIALS = os.path.join(BASE_DIR, "prodloop-8df7fb8e30c0.json")
 FINGPT_VERSION = "FinGPT-RAG-Portfolio-v4.2.1"
 FINGPT_WEIGHTS = os.path.join(BASE_DIR, "models", "fingpt_weights")
 
